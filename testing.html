@@ -1,0 +1,147 @@
+<html>
+
+<head>
+    <title>HTML and JavaScript</title>
+    <script>
+        function doSubmit() {
+            // MD This runs the validate fieldes
+            if (!(validateText() && validateZipCode() && validatePhoneNumber() && validateRadio() && validateCheck())) return false;
+
+            /* MD this generates the box message */
+            var fields = ["customer", "address", "city", "state", "zip", "phone", "email", "sizes"];
+            var fieldNames = ["Name", "Address", "City", "State", "Zip", "Phone", "Email", "Size"];
+            var msg = "";
+            for (i = 0; i < fields.length; i++)
+                msg += fieldNames[i] + ": " + document.PizzaForm[fields[i]].value + "\n";
+            msg += "Toppings: ";
+            for (i = 0; i < document.PizzaForm.toppings.length; i++)
+                if (document.PizzaForm.toppings[i].checked)
+                    msg += (i == 0 ? "" : ",") + document.PizzaForm.toppings[i].value;/* MD this displays the toppings from the check boxes in an alert box */
+            alert(msg);
+            var i = document.PizzaForm.states.options.selectedIndex;
+            var text = document.PizzaForm.states.options[i].text;
+            var value = document.PizzaForm.states.options[i].value;
+            msg += "State: ";
+            for (i = 0; i < document.PizzaForm.states.length; i++)
+                if (document.PizzaForm.states[i].selected)
+                    msg += (i == 0 ? "" : ",") + document.PizzaForm.states[i].value;
+            alert(msg);
+            return true;
+        }
+        function validateText() {
+            var pass = true;
+            var fields = ["customer", "address", "city", "state", "zip", "phone"];
+            var fieldNames = ["your name", "an address", "a city", "a state", "a zip code", "a phone number"]; /* MD this groups all the item headings */
+            for (i = 0; i < fields.length; i++) /* MD this is the alert button for missing items */
+                if (document.PizzaForm[fields[i]].value.length == 0) {
+                    alert("Please enter " + fieldNames[i] + ".");
+                    pass = false;
+                }
+            var email = document.PizzaForm["email"].value;/* MD This validates the email address */
+            atpos = email.indexOf("@"); dotpos = email.lastIndexOf(".");
+            if (atpos < 1 || (dotpos - atpos < 2)) { alert("Please enter an email address."); pass = false; }
+            return pass;
+        }
+
+        function validateZipCode() {
+            var zipDigit = document.PizzaForm.zip.value;
+            if (zipDigit != "") {
+                /* MD this is the regular expression for zip code patterns */
+                var regx = /^\d{5}$/;
+
+                if (regx.test(zipDigit) == false) {    /* MD This is used if number does not match with the pattern */
+                    alert("Please enter a 5 digit zip code.");
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        function validatePhoneNumber() {
+            var phoneNum = document.PizzaForm.phone.value;
+            if (phoneNum != "") {
+                /* MD this is th regular expression for phone number patterns */
+                var regx = /(^\d{3}\-\d{3}\-\d{4}$)|(^\d{10}$)|(^\(\d{3}\)\d{7}$)|(^\(\d{3}\)\d{3}\-\d{4}$)/g;
+
+                if (regx.test(phoneNum) == false) {    /* MD This is used if number does not match with the pattern */
+                    alert("Please enter valid Phone number." + "\n\n" +
+                        "For example : " + "\n" +
+                        "012-345-6789 " + "\n" +
+                        "0123456789 " + "\n" +
+                        "(012)3456789 " + "\n" +
+                        "(012)345-6789"
+                    );
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        function validateRadio() {
+            for (i = 0; i < document.PizzaForm.sizes.length; i++)/* MD This validates the pizza size radio buttons */
+                if (document.PizzaForm.sizes[i].checked)
+                    return true;
+            alert("Please choose a pizza size.");
+            return false;
+        }
+
+        function validateCheck() {
+            for (i = 0; i < document.PizzaForm.toppings.length; i++)/* MD This validates the pizza toppings check boxes */
+                if (document.PizzaForm.toppings[i].checked)
+                    return true;
+            alert("Please pick a topping of your choice.");
+            return false;
+        }
+
+    </script>
+</head>
+
+<body>
+    <form name="PizzaForm">
+        <h1>The JavaScript Pizza Parlor</h1>
+        <p>
+        <h4>Step 1: Enter your name, address, and phone number:</h4>
+        <font face="Courier New">
+            Name: &nbsp;&nbsp;&nbsp;<input name="customer" size="50" type="text"><br>
+            Address: <input name="address" size="50" type="text"><br>
+            City: &nbsp;&nbsp;&nbsp;<input name="city" size="15" type="text">
+            State: <select name="states">
+                <option value="PA">PA</option>
+                <option value="NJ">NJ</option>
+                <option value="NY">NY</option>
+                <option value="DE">DE</option>
+            </select>
+            Zip: <input name="zip" size="5" type="text"><br>
+            Phone: &nbsp;&nbsp;<input name="phone" size="50" type="text"><br>
+            Email: &nbsp;&nbsp;<input name="email" size="40" type="text"><br>
+        </font>
+        </p>
+        <p>
+        <h4>Step 2: Select the size of pizza you want:</h4>
+        <font face="Courier New">
+            <input name="sizes" type="radio" value="Small">Small
+            <input name="sizes" type="radio" value="Medium">Medium
+            <input name="sizes" type="radio" value="Large">Large
+            <input name="sizes" type="radio" value="Jumbo">Jumbo<br>
+        </font>
+        </p>
+        <p>
+        <h4>Step 3: Select the pizza toppings you want:</h4>
+        <font face="Courier New">
+            <input name="toppings" type="checkbox" value="Pepperoni">Pepperoni
+            <input name="toppings" type="checkbox" value="Canadian Bacon">Canadian Bacon
+            <input name="toppings" type="checkbox" value="Sausage">Sausage<br>
+            <input name="toppings" type="checkbox" value="Mushrooms">Mushrooms
+            <input name="toppings" type="checkbox" value="Pineapple">Pineapple
+            <input name="toppings" type="checkbox" value="Black Olives">Black Olives<br>
+            <input name="toppings" type="checkbox" value="Green Peppers">Green Peppers
+            <input name="toppings" type="checkbox" value="Extra Cheese">Extra Cheese
+            <input name="toppings" type="checkbox" value="None">None<br>
+        </font>
+        </p>
+        <input type="button" value="Submit Order" onClick="doSubmit()">
+        <input type="reset" value="Clear Entries"> <!-- MD This clears the entries -->
+    </form>
+</body>
+
+</html>
