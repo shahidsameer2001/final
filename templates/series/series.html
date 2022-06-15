@@ -53,10 +53,72 @@ active
 
     #myBtn {
         position: absolute;
-        top: 16px;
-        left: 350px;
+        top: 70px;
+        left: 20px;
+        margin-left: 90%;
+        margin-top: .25%;
+
 
     }
+    @media screen and (max-width: 600px) {
+
+}
+.notice{
+    position: relative;
+}
+
+.anima {
+        position: absolute;
+        top: 29%;
+        left:375px;
+        
+        display: flex;
+      }
+      .anima li {
+        list-style: none;
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border-radius: 50%;
+  
+        animation: animate 1.7s ease-in-out infinite;
+      }
+      @keyframes animate {
+        0%,
+        40%,
+        100% {
+          transform: scale(0.2);
+        }
+        20% {
+          transform: scale(1);
+        }
+      }
+  
+      .anima .anima1:nth-child(1) {
+        animation-delay: -1.2s;
+        background: yellow;
+        box-shadow: 0 0 50px yellow;
+      }
+      .anima .anima1:nth-child(2) {
+        animation-delay: -1s;
+        background: rgb(99, 247, 136);
+        box-shadow: 0 0 50px rgb(99, 247, 136);
+      }
+      .anima .anima1:nth-child(3) {
+        animation-delay: -0.8s;
+        background: rgb(30, 243, 225);
+        box-shadow: 0 0 50px  rgb(30, 243, 225);
+      }
+      .anima .anima1:nth-child(4) {
+        animation-delay: -0.6s;
+        background: rgb(241, 58, 58);
+        box-shadow: 0 0 50px rgb(241, 58, 58);
+      }
+      .anima .anima1:nth-child(5) {
+        animation-delay: -0.4s;
+        background: rgb(247, 61, 176);
+        box-shadow: 0 0 50px  rgb(247, 61, 176);
+      }
 </style>
 {% endblock css%}
 
@@ -64,13 +126,24 @@ active
 
 
 
-<button id="myBtn" class="btn text-white lis">Notice Board</button>
+<button id="myBtn" class="btn text-white lis btn btn-success">Notice Board</button>
 <div id="myModal" class="modal">
-    <div class="modal-content card bg-secondary text-white">
+    <div class="modal-content card bg-secondary text-white notice">
         <span class="close">&times;</span>
-        <h3 style="color:red;">Notice Board</h3>
+        <h2 style="color:#022140; margin-left:200px;"><strong>Notice Board</strong></h2>
+        <ul class="anima">
+            <li class="anima1"></li>
+            <li class="anima1"></li>
+            <li class="anima1"></li>
+            <li class="anima1"></li>
+            <li class="anima1"></li>
+        
+        </ul>
+        
         {%for i in note%}
-        <p>{{i.notice}}</p>
+        <p  style="font-size:20px;">{{i.notice}}</p>
+        
+        
         {%endfor%}
     </div>
 </div>

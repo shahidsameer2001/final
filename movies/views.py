@@ -239,3 +239,8 @@ def edit_profile(request):
 
 
         return render(request, 'profile/edit_profile.html', context)
+
+
+@login_required(login_url='login')
+def about(request):
+    return render(request,'about.html')
