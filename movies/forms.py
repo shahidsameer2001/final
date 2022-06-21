@@ -14,18 +14,10 @@ class OrderForm(ModelForm):
 
 
 class CreateUserForm(UserCreationForm):
-    INTERESTS = (
-        ('python', 'Python'),
-        ('java', 'Java'),
-        ('c', 'C'),
-        ('cpp', "C++"),
-    )
-    interests = forms.MultipleChoiceField(
-        required=True,widget=forms.Select(), choices=INTERESTS)
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username',
-                  'email', 'password1', 'password2','interests']
+                  'email', 'password1', 'password2']
         
 
 

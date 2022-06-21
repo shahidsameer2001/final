@@ -37,17 +37,16 @@ from django.urls import reverse
 # register
 def registerPage(request):
     form = CreateUserForm()
-
     if(request.method == "POST"):
         form = CreateUserForm(request.POST)
         if(form.is_valid() ):
             form.save()
-
             user = form.cleaned_data.get('username')
+
+            
             return redirect('login')
 
     context = {'form': form}
-    print(context)
     return render(request, '../templates/register/register.html', context)
 
 
